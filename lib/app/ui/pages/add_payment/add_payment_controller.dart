@@ -73,13 +73,12 @@ class AddPaymentController extends ChangeNotifier {
   ValidationItem get amount => amountTextV!;
 
   bool get validate {
-    if (nameTextV!.value!= null &&
+    if (nameTextV!.value != null &&
         identityCardTextV!.value != null &&
         phoneNumberTextV!.value != null &&
         apartmentTextV!.value != null &&
         referenceNumberTextV!.value != null &&
         amountTextV!.value != null &&
-        
         nameTextV!.value!.isNotEmpty &&
         identityCardTextV!.value!.isNotEmpty &&
         phoneNumberTextV!.value!.isNotEmpty &&
@@ -155,7 +154,7 @@ class AddPaymentController extends ChangeNotifier {
     } else if (text.length > 5) {
       apartmentTextV =
           ValidationItem(null, 'La longitud del dato es mayor a la requerida.');
-    } else if (!text.isValidNumber) {
+    } else if (!text.isValidate) {
       apartmentTextV = ValidationItem(null, 'Dato Inválido');
     } else {
       apartmentTextV = ValidationItem(text, null);
@@ -167,7 +166,7 @@ class AddPaymentController extends ChangeNotifier {
   String? referenceNumberChanged(String text) {
     if (text.isEmpty) {
       referenceNumberTextV = ValidationItem(null, 'Campo requerido.');
-    } else if (text.length < 5) {
+    } else if (text.length < 4) {
       referenceNumberTextV = ValidationItem(
           null, 'Longitud del dato menor a la mínima requerida.');
     } else if (text.length > 20) {
@@ -185,7 +184,7 @@ class AddPaymentController extends ChangeNotifier {
   String? amountChanged(String text) {
     if (text.isEmpty) {
       amountTextV = ValidationItem(null, 'Campo requerido.');
-    } else if (text.length < 3) {
+    } else if (text.length < 2) {
       amountTextV = ValidationItem(
           null, 'Longitud del dato menor a la mínima requerida.');
     } else if (text.length > 12) {
@@ -205,14 +204,13 @@ class AddPaymentController extends ChangeNotifier {
     final token = prefs.getString('token');
 
     final AddPaymentModel result = (await _addPaymentApi.addPayment(
-      name: nameController.text,
-      identity_card: identityCardController.text,
-      phone_number: phoneNumberController.text,
-      apartment: apartmentController.text,
-      reference_number: referenceCodeController.text,
-      amount: amountController.text,
-      token: token!
-    ));
+        name: nameController.text,
+        identity_card: identityCardController.text,
+        phone_number: phoneNumberController.text,
+        apartment: apartmentController.text,
+        reference_number: referenceCodeController.text,
+        amount: amountController.text,
+        token: token!));
 
     notifyListeners();
     return result;

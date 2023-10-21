@@ -44,9 +44,10 @@ class PaymentRecordController extends ChangeNotifier {
   }
 
   filter() {
-    filterPayment = allPayment!.where((element) => element!.name.toLowerCase().startsWith(filterController.value.text)).toList();
+    filterPayment = allPayment!
+        .where((element) =>
+            element!.name.toLowerCase().startsWith(filterController.value.text))
+        .toList();
     notifyListeners();
   }
-
-
 }

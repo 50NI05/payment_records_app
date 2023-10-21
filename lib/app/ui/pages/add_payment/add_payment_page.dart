@@ -55,28 +55,6 @@ class AddPaymentPage extends StatelessWidget {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.blue,
             elevation: 0,
-            actions: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      showAlert(
-                        context,
-                        logout: true,
-                        title: 'importante',
-                        msg: '¿Está seguro que desea cerrar sesión?',
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.logout_rounded,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              )
-            ],
             title: const Text(
               'Pago',
               style: TextStyle(color: Colors.white),

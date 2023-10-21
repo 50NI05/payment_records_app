@@ -122,7 +122,7 @@ class UpdatePaymentController extends ChangeNotifier {
     } else if (text.length > 5) {
       apartmentTextV =
           ValidationItem(null, 'La longitud del dato es mayor a la requerida.');
-    } else if (!text.isValidNumber) {
+    } else if (!text.isValidate) {
       apartmentTextV = ValidationItem(null, 'Dato Inválido');
     } else {
       apartmentTextV = ValidationItem(text, null);
@@ -134,7 +134,7 @@ class UpdatePaymentController extends ChangeNotifier {
   String? referenceNumberChanged(String text) {
     if (text.isEmpty) {
       referenceNumberTextV = ValidationItem(null, 'Campo requerido.');
-    } else if (text.length < 5) {
+    } else if (text.length < 4) {
       referenceNumberTextV = ValidationItem(
           null, 'Longitud del dato menor a la mínima requerida.');
     } else if (text.length > 20) {
@@ -152,7 +152,7 @@ class UpdatePaymentController extends ChangeNotifier {
   String? amountChanged(String text) {
     if (text.isEmpty) {
       amountTextV = ValidationItem(null, 'Campo requerido.');
-    } else if (text.length < 3) {
+    } else if (text.length < 2) {
       amountTextV = ValidationItem(
           null, 'Longitud del dato menor a la mínima requerida.');
     } else if (text.length > 12) {
@@ -170,29 +170,26 @@ class UpdatePaymentController extends ChangeNotifier {
   UpdatePaymentController(this._updatePaymentApi);
 
   Future<UpdatePaymentModel?> updatePayment(
-    int idPayment, 
-    {
-      String? name, 
-      String? identity_card, 
-      String? phone_number, 
-      String? apartment, 
-      String? reference_number, 
-      String? amount,
-    }
-  ) async {
+    int idPayment, {
+    String? name,
+    String? identity_card,
+    String? phone_number,
+    String? apartment,
+    String? reference_number,
+    String? amount,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
     final response = await _updatePaymentApi.updatePayment(
-      id: idPayment, 
-      token: token!, 
-      name: name, 
-      identity_card: identity_card, 
-      phone_number: phone_number, 
-      apartment: apartment, 
-      reference_number: reference_number, 
-      amount: amount
-    );
+        id: idPayment,
+        token: token!,
+        name: name,
+        identity_card: identity_card,
+        phone_number: phone_number,
+        apartment: apartment,
+        reference_number: reference_number,
+        amount: amount);
 
     notifyListeners();
 

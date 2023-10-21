@@ -7,6 +7,7 @@ import 'package:registro_pagos/app/ui/pages/payment_record/payment_record_contro
 import 'package:registro_pagos/app/ui/pages/payment_record/update_payment_controller.dart';
 import 'package:registro_pagos/app/widgets/global_cupertino_input.dart';
 
+import '../../../theme/theme.dart';
 import '../../../widgets/global_alert_options.dart';
 
 class PaymentRecordTable extends StatefulWidget {
@@ -214,7 +215,25 @@ class _PaymentRecordTableState extends State<PaymentRecordTable> {
                                       ],
                                     ),
                                     acceptTitle: 'Aceptar',
-                                    acceptOnPressed: () async => {
+                                    acceptOnPressed: () async {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: const [
+                                                CircularProgressIndicator(),
+                                                SizedBox(height: 16),
+                                                Text('Actualizando datos...'),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        barrierDismissible:
+                                            false, // Evita que el usuario cierre el diálogo
+                                      );
+
                                       await updatePaymentController.updatePayment(allPaymentController.filterPayment![index]!.id,
                                           name: updatePaymentController.nameController.text != ''
                                               ? updatePaymentController
@@ -239,25 +258,27 @@ class _PaymentRecordTableState extends State<PaymentRecordTable> {
                                               ? updatePaymentController.apartmentController.text.toString()
                                               : allPaymentController.filterPayment![index]!.apartment.toString(),
                                           reference_number: updatePaymentController.referenceCodeController.text != '' ? updatePaymentController.referenceCodeController.text.toString() : allPaymentController.filterPayment![index]!.referenceNumber.toString(),
-                                          amount: updatePaymentController.amountController.text != '' ? updatePaymentController.amountController.text.toString() : allPaymentController.filterPayment![index]!.amount.toString()),
+                                          amount: updatePaymentController.amountController.text != '' ? updatePaymentController.amountController.text.toString() : allPaymentController.filterPayment![index]!.amount.toString());
                                       updatePaymentController.nameController
-                                          .clear(),
+                                          .clear();
                                       updatePaymentController
                                           .identityCardController
-                                          .clear(),
+                                          .clear();
                                       updatePaymentController
                                           .phoneNumberController
-                                          .clear(),
+                                          .clear();
                                       updatePaymentController
                                           .apartmentController
-                                          .clear(),
+                                          .clear();
                                       updatePaymentController
                                           .referenceCodeController
-                                          .clear(),
+                                          .clear();
                                       updatePaymentController.amountController
-                                          .clear(),
-                                      Navigator.pop(context),
-                                      await allPaymentController.getAllPayment()
+                                          .clear();
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      await allPaymentController
+                                          .getAllPayment();
                                     },
                                     cancelTitle: 'Cancelar',
                                     cancelOnPressed: () =>
@@ -267,11 +288,37 @@ class _PaymentRecordTableState extends State<PaymentRecordTable> {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete),
-                                onPressed: () async => {
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              CircularProgressIndicator(
+                                                color: primaryColor,
+                                              ),
+                                              SizedBox(width: 20),
+                                              Text('Eliminando...'),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+
                                   await deletePaymentController.deletePayment(
-                                      allPaymentController
-                                          .filterPayment![index]!.id),
-                                  await allPaymentController.getAllPayment()
+                                    allPaymentController
+                                        .filterPayment![index]!.id,
+                                  );
+
+                                  Navigator.pop(context);
+
+                                  await allPaymentController.getAllPayment();
                                 },
                               ),
                             ],

@@ -84,7 +84,7 @@ class AddPaymentInput extends StatelessWidget {
             changed: controller.referenceNumberChanged,
             isPassword: false,
             passwordVisible: false,
-            maxLength: 5,
+            maxLength: 4,
             labelStyle: Colors.black,
             colorStyle: Colors.black,
             borderSide: Colors.black,

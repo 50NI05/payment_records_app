@@ -60,28 +60,6 @@ class PaymentRecordPage extends StatelessWidget {
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: const Color.fromRGBO(234, 238, 242, 1),
-                  actions: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            showAlert(
-                              context,
-                              logout: true,
-                              title: 'importante',
-                              msg: '¿Está seguro que desea cerrar sesión?',
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.logout_rounded,
-                            color: Colors.black,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
                   title: const Text(
                     'Registro',
                     style: TextStyle(color: Colors.black),

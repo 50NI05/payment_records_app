@@ -14,7 +14,8 @@ class DeletePaymentController extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    final response = await _deletePaymentApi.deletePayment(id: idPayment, token: token!);
+    final response =
+        await _deletePaymentApi.deletePayment(id: idPayment, token: token!);
 
     notifyListeners();
 
